@@ -199,7 +199,7 @@
                 </div>
             </div>
             <div class="col-sm-10 col-lg-8 mx-auto text-center" style="margin-top: 20px;">
-                <a href="kurzusok.blade.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Tovább a kurzusokhoz</a>
+                <a href="kurzusok" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Tovább a kurzusokhoz</a>
             </div>
         </div>
     </div>
@@ -243,7 +243,7 @@
                 </div>
             </div>
             <div class="col-sm-10 col-lg-8 mx-auto text-center" style="margin-top: 20px;">
-                <a href="kurzusok.blade.php" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Tovább a kurzusokhoz</a>
+                <a href="kurzusok" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Tovább a kurzusokhoz</a>
             </div>
         </div>
     </div>
