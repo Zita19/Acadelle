@@ -495,3 +495,20 @@
 .signout-button:hover {
     background-color: rgb(90, 6, 6);
 }
+
+.create{
+    border-radius: 50px;
+    background-color: #06BBCC;
+    text-decoration-style: white;
+}
+
+.delete{
+    border-radius: 50px;
+    background-color: red;
+    text-decoration-color: white;
+}
+
+input{
+    border-radius: 50px;
+    border-color: black;
+}
