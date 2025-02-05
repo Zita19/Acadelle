@@ -69,30 +69,46 @@
         </div>
     </div>
 
-    <div class="user-info-container row">
-        <div class="user-details col-md">
-            <h2>Felhasználó adatai</h2>
-            <p><strong>Email:</strong> pelda@valami.hu</p>
-            <p><strong>Felvett kurzusok száma:</strong> 3</p>
-            <p><strong>Név:</strong> Valami</p>
-            <p><strong>Felhasználó név:</strong> Felhasználó név</p>
-        </div>
-        <div class="courses col-md">
-            <h2>Kurzusok:</h2>
-            <select class="dropdown">
-                <option title="kurzus">Kurzus</option>
-                <option value="hely">Helyszín: </option>
-                <option value="oktato">Oktató:</option>
-                <option value="idopont"><button>Lejenetkezés a kurzusról</button></option>
-            </select>
-            <select class="dropdown">
-                <option title="kurzus">Kurzus</option>
-                <option value="hely">Helyszín: </option>
-                <option value="oktato">Oktató:</option>
-                <option value="idopont"><button>Lejenetkezés a kurzusról</button></option>
-            </select>
-            <button class="pay-button"><a href="fizetes.html">Fizetés</a></button>
-            <button class="signout-button"><a href="">Lejelentkezés kurzusról</a></button>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Felhasználói adatok -->
+            <div class="col-md-4">
+                <div class="card p-4 shadow">
+                    <h2 class="text-primary">Felhasználó adatai</h2>
+                    <p><strong>Email:</strong> pelda@valami.hu</p>
+                    <p><strong>Felvett kurzusok száma:</strong><span id="course-count">3</span></p>
+                </div>
+            </div>
+    
+            <!-- Kurzusok -->
+            <div class="col-md-8">
+                <h2 class="mb-3">Felvett kurzusok</h2>
+                <div class="row">
+                    <!-- Egyedi kurzus kártya -->
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow">
+                            <h5 class="text-primary">Kurzus neve</h5>
+                            <p><strong>Helyszín:</strong> Online</p>
+                            <p><strong>Oktató:</strong> Dr. Példa</p>
+                            <button class="signout-button remove-course">Leiratkozás</button>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow">
+                            <h5 class="text-primary">Kurzus neve</h5>
+                            <p><strong>Helyszín:</strong> Budapest</p>
+                            <p><strong>Oktató:</strong> Dr. Példa</p>
+                            <button class="signout-button remove-course">Leiratkozás</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="mt-4">
+                    <a href="fizetes.html" class="pay-button">Fizetés</a>
+                    <button class="signout-button" id="remove-all">Lejelentkezés kurzusról</button>
+                </div>
+            </div>
         </div>
     </div>
 
