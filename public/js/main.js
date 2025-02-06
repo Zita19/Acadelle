@@ -109,6 +109,21 @@ function myFunction() {
     }
 }
 
+function kurzus() {
+    var input, filter, div, i, txtValue;
+    input = document.getElementById("kurzuskereso");
+    filter = input.value.toUpperCase();
+    div = document.getElementsByClassName("filterDiv");
+    for (i = 0; i < div.length; i++) {
+        txtValue = div[i].textContent || div[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            div[i].style.display = "";
+        } else {
+            div[i].style.display = "none";
+        }
+    }
+}
+
 filterSelection("all")
 function filterSelection(c) {
 var x, i;
@@ -140,3 +155,51 @@ btns[i].addEventListener("click", function(){
     this.className += " active";
 });
 }
+
+document.getElementById('ingyen').addEventListener('change', function() {
+    let fizetos = document.getElementById('fizet');
+    let arInput = document.getElementById('ar');
+
+    if (this.checked) {
+      fizetos.checked = false;
+      arInput.style.display = 'none';
+      arInput.value = '';
+    }
+  });
+
+  document.getElementById('fizet').addEventListener('change', function() {
+    let ingyenes = document.getElementById('ingyen');
+    let arInput = document.getElementById('ar');
+
+    if (this.checked) {
+      ingyenes.checked = false;
+      arInput.style.display = 'inline';
+    } else {
+      arInput.style.display = 'none'; 
+      arInput.value = '';
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const courseContainer = document.getElementById("courses-container");
+    const courseCount = document.getElementById("course-count");
+    const removeAllButton = document.getElementById("remove-all");
+
+    // Egyéni kurzus törlése
+    courseContainer.addEventListener("click", function (event) {
+        if (event.target.classList.contains("remove-course")) {
+            const courseCard = event.target.closest(".course-card");
+            if (courseCard) {
+                courseCard.remove();
+                let remainingCourses = document.querySelectorAll(".course-card").length;
+                courseCount.textContent = remainingCourses;
+            }
+        }
+    });
+
+    // Összes kurzus törlése
+    removeAllButton.addEventListener("click", function () {
+        document.querySelectorAll(".course-card").forEach(course => course.remove()); // Minden kurzus eltávolítása
+        courseCount.textContent = "0";
+    });
+});

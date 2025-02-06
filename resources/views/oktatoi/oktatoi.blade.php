@@ -69,34 +69,62 @@
         </div>
     </div>
 
-    <div class="user-info-container">
-        <div class="user-details">
+    <div class="user-info-container row">
+        <div class="user-details col-md">
             <h2>Felhasználó adatai</h2>
             <p><strong>Email:</strong> pelda@valami.hu</p>
             <p><strong>Kurzusok száma:</strong> 3</p>
             <p><strong>Név:</strong> Valami</p>
             <p><strong>Felhasználó név:</strong> Felhasználó név</p>
-            <p><strong>Tanulók listája:</strong></p>
-            <select class="dropdown">
-                <option title="tanulo">Tanuló</option>
-                <option value="tanulo">Tanuló</option>
-            </select>
+            <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
+            
+            <div class="diaklista">
+                <div class="filterDiv diak1">john</div>
+                <div class="filterDiv diak2">kate</div>
+                <div class="filterDiv diak3">kevin</div>
+                <div class="filterDiv diak4">jenny</div>
+                <div class="filterDiv diak5">nick</div>
+                <div class="filterDiv diak6">patric</div>
+                <div class="filterDiv diak7">mary</div>
+                <div class="filterDiv diak8">nick</div>
+                <div class="filterDiv diak9">steve</div>
+                <div class="filterDiv diak10">clair</div>
+                <div class="filterDiv diak11">jill</div>
+                <div class="filterDiv diak12">john</div>
+                <div class="filterDiv diak13">clair</div>
+                <div class="filterDiv diak14">steve</div>
+                <div class="filterDiv diak15">jill</div>
+                <div class="filterDiv diak16">adam</div>
+                <div class="filterDiv diak17">kevin</div>
+                <div class="filterDiv diak18">matt</div>
+                <div class="filterDiv diak19">jenny</div>
+                <div class="filterDiv diak20">derek</div>
+                <div class="filterDiv diak21">mary</div>
+                <div class="filterDiv diak22">penny</div>
+                <div class="filterDiv diak23">patric</div>
+                <div class="filterDiv diak24">josh</div>
+                <div class="filterDiv diak25">Zoe</div>
+            </div>
         </div>
-        <div class="courses">
-            <h2>Kurzusok:</h2>
-            <select class="dropdown">
-                <option title="kurzus">Kurzus</option>
-                <option value="hely">Helyszín: </option>
-                <option value="tanulokszama">Tanulók száma: </option>
-                <option value="ido">Időpont: </option>
-            </select>
-            <select class="dropdown">
-                <option title="kurzus">Kurzus</option>
-                <option value="hely">Helyszín: </option>
-                <option value="tanulokszama">Tanulók száma: </option>
-            </select>
-            <button class="pay-button"><a href="fizetes.html">Fizetés</a></button>
-            <button class="cancel-button" name="cancel" id="cancel">Kurzus törlése</button>
+        <div class="courses col-md">
+            <h2>Kurzus létrehozás:</h2>
+            <p>Kurzus neve: <input type="text" id="myInput" placeholder="Kurzusnév" title="Kurzusnév megadása"></p>
+            <p>Helyszín: <input type="text" id="myInput" placeholder="Helyszín" title="Helyszín megadása"></p>
+            <p>Tanulók száma: <input type="number" id="myInput" placeholder="Tanulók max" title="Maximum szám"></p>
+            <p>Időpont: <input type="datetime-local" id="myInput"></p>
+            <p>Ingyenes: <input type="checkbox" id="ingyen" placeholder="ingyenes" title="ingyenes">   Fizetős: <input type="checkbox" id="fizet" placeholder="fizetés" title="fizetés"></p>
+            <input type="number" id="ar" placeholder="ár" title="ár" style="display: none;">
+            <button class="create"><a href="">Létrehozás</a></button>
+            <button class="delete" name="cancel" id="cancel">Kurzus törlése</button>
+        </div>
+        
+        <div class="courses col-md kurzuslista">
+            <p><strong>Kurzusok listája:</strong><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Keresés" title="Keresés itt"></p>
+            <div class="filterDiv kurzus1">kurzus1</div>
+            <div class="filterDiv kurzus2">kurzus2</div>
+            <div class="filterDiv kurzus3">kurzus3</div>
+            <div class="filterDiv kurzus4">kurzus4</div>
+            <div class="filterDiv kurzus5">kurzus5</div>
         </div>
     </div>
 
@@ -114,7 +142,6 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+36 06 12 345 678 9</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@acadelle.com</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href="https://x.com/?lang=hu&mx=2"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/?locale=hu_HU"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-outline-light btn-social" href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
                         <a class="btn btn-outline-light btn-social" href="https://hu.linkedin.com"><i class="fab fa-linkedin-in"></i></a>
@@ -124,8 +151,8 @@
                     <h4 class="text-white mb-3">Hírlevelünk</h4>
                     <p>Értesítést küldünk minden fontos információról és érdekes újdonságokról</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" id="sub" placeholder="email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" onclick="feliratkozas()">Feliratkozás</button>
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Feliratkozás</button>
                     </div>
                 </div>
             </div>
