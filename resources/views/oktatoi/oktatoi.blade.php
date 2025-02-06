@@ -77,7 +77,6 @@
             <p><strong>Név:</strong> Valami</p>
             <p><strong>Felhasználó név:</strong> Felhasználó név</p>
             <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
-            
             <div class="diaklista">
                 <div class="filterDiv diak1">john</div>
                 <div class="filterDiv diak2">kate</div>

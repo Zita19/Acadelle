@@ -6,7 +6,7 @@ use App\Http\Controllers\BejelentkezesController;
 use App\Http\Controllers\RegisztracioController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
