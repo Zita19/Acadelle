@@ -109,6 +109,21 @@ function myFunction() {
     }
 }
 
+function kurzus() {
+    var input, filter, div, i, txtValue;
+    input = document.getElementById("kurzuskereso");
+    filter = input.value.toUpperCase();
+    div = document.getElementsByClassName("filterDiv");
+    for (i = 0; i < div.length; i++) {
+        txtValue = div[i].textContent || div[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            div[i].style.display = "";
+        } else {
+            div[i].style.display = "none";
+        }
+    }
+}
+
 filterSelection("all")
 function filterSelection(c) {
 var x, i;

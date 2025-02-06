@@ -76,8 +76,7 @@
             <p><strong>Kurzusok száma:</strong> 3</p>
             <p><strong>Név:</strong> Valami</p>
             <p><strong>Felhasználó név:</strong> Felhasználó név</p>
-            <p><strong>Tanulók listája:</strong><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Keresés" title="Keresés itt"></p>
-            
+            <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
             <div class="diaklista">
                 <div class="filterDiv diak1">john</div>
                 <div class="filterDiv diak2">kate</div>
@@ -122,7 +121,7 @@
             <p><strong>Kurzusok listája:</strong><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Keresés" title="Keresés itt"></p>
             <div class="filterDiv kurzus1">kurzus1</div>
             <div class="filterDiv kurzus2">kurzus2</div>
-            <div class="filterDiv kurzusk3">kurzus3</div>
+            <div class="filterDiv kurzus3">kurzus3</div>
             <div class="filterDiv kurzus4">kurzus4</div>
             <div class="filterDiv kurzus5">kurzus5</div>
         </div>
