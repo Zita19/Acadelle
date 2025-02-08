@@ -47,7 +47,12 @@
                 <a href="oktatok" class="nav-item nav-link">Oktatók</a>
                 <a href="kapcsolat" class="nav-item nav-link">Kapcsolat</a>
             </div>
-            <a href="bejelentkezes" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Kijelentkezés</a>
+            @auth
+                <form id="logout-form" action="{{ route('kijelentkezes') }}" method="POST" class="d-inline">
+                @csrf
+                    <button type="submit" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Kijelentkezés</button>
+                </form>
+            @endauth
         </div>
     </nav>
 

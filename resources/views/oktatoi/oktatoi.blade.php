@@ -47,7 +47,12 @@
                 <a href="oktatok" class="nav-item nav-link">Oktatók</a>
                 <a href="kapcsolat" class="nav-item nav-link">Kapcsolat</a>
             </div>
-            <a href="bejelentkezes" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Csatlakozz most!<i class="fa fa-arrow-right ms-3"></i></a>
+            @auth
+                <form id="logout-form" action="{{ route('kijelentkezes') }}" method="POST" class="d-inline">
+                @csrf
+                    <button type="submit" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Kijelentkezés</button>
+                </form>
+            @endauth
         </div>
     </nav>
 
@@ -59,8 +64,11 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <div class="profile-container">
-                                <div class="profile-pic">O</div>
-                                <div class="profile-name">Üdv újra Felhasználó Neve!</div>
+                                @if(isset($oktato))
+                                    <div class="profile-name">Üdv újra, {{ $oktato->nev }}!</div>
+                                @else
+                                    <div class="profile-name">Üdv újra, {{ Auth::guard('oktato')->user()->nev ?? 'Vendég' }}!</div>
+                                @endif
                             </div>
                         </ol>
                     </nav>
@@ -71,11 +79,17 @@
 
     <div class="user-info-container row">
         <div class="user-details col-md">
+        @php
+            $oktato = Auth::guard('oktato')->user();
+        @endphp
+        @if(isset($oktato))
             <h2>Felhasználó adatai</h2>
-            <p><strong>Email:</strong> pelda@valami.hu</p>
-            <p><strong>Kurzusok száma:</strong> 3</p>
-            <p><strong>Név:</strong> Valami</p>
-            <p><strong>Felhasználó név:</strong> Felhasználó név</p>
+            <p><strong>Név:</strong> {{ $oktato->nev }}</p>
+            <p><strong>Felhasználónév:</strong> {{ $oktato->felhasznalonev }}</p>
+            <p><strong>Email:</strong> {{ $oktato->email }}</p>
+        @else
+            <p class="text-center text-danger">Nincs bejelentkezett oktató!</p>
+        @endif
             <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
             <div class="diaklista">
                 <div class="filterDiv diak1">john</div>
@@ -109,7 +123,6 @@
             <h2>Kurzus létrehozás:</h2>
             <p>Kurzus neve: <input type="text" id="myInput" placeholder="Kurzusnév" title="Kurzusnév megadása"></p>
             <p>Helyszín: <input type="text" id="myInput" placeholder="Helyszín" title="Helyszín megadása"></p>
-            <p>Tanulók száma: <input type="number" id="myInput" placeholder="Tanulók max" title="Maximum szám"></p>
             <p>Időpont: <input type="datetime-local" id="myInput"></p>
             <p>Ingyenes: <input type="checkbox" id="ingyen" placeholder="ingyenes" title="ingyenes">   Fizetős: <input type="checkbox" id="fizet" placeholder="fizetés" title="fizetés"></p>
             <input type="number" id="ar" placeholder="ár" title="ár" style="display: none;">

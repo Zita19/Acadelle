@@ -59,3 +59,5 @@ Route::middleware(['auth:oktato'])->group(function () {
         return view('oktatoi.oktatoi');
     })->name('oktatoi.oktatoi');
 });
+
+Route::post('/kijelentkezes', [BejelentkezesController::class, 'logout'])->name('kijelentkezes');

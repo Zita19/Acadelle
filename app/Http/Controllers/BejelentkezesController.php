@@ -36,8 +36,13 @@ class BejelentkezesController extends Controller
 
     public function logout()
     {
-        Auth::logout();
-        return redirect('/login');
+        if (Auth::guard('oktato')->check()) {
+            Auth::guard('oktato')->logout();
+        } elseif (Auth::guard('tanulo')->check()) {
+            Auth::guard('tanulo')->logout();
+        }
+    
+        return redirect()->route('bejelentkezes')->with('status', 'Sikeresen kijelentkeztél!');
     }
 
     /**
