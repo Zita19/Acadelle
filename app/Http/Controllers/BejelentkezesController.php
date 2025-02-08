@@ -8,43 +8,36 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Tanulo;
 use App\Models\Oktatok;
+use Illuminate\Support\Facades\DB;
 
 class BejelentkezesController extends Controller
 {
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'jelszo' => 'required'
-        ]);
-    
-        $tanulo = Tanulo::where('email', $request->email)->first();
-        if ($tanulo && Hash::check($request->jelszo, $tanulo->jelszo)) {
-            Auth::guard('tanulo')->login($tanulo); 
-            return redirect()->route('tanuloi.tanuloi');
-        }
+{
+    $credentials = $request->only('email', 'jelszo');
+    $tanulo = Tanulo::where('email', $credentials['email'])->first();
+    if ($tanulo) {
+        if (Hash::check($credentials['jelszo'], $tanulo->jelszo)) {
+            Auth::guard('tanulo')->login($tanulo);
+            return redirect()->intended(route('tanuloi.tanuloi'));
 
-        $oktato = Oktatok::where('email', $request->email)->first();
-        if ($oktato && Hash::check($request->jelszo, $oktato->jelszo)) {
+        }
+    }
+    $oktato = Oktatok::where('email', $credentials['email'])->first();
+    if ($oktato) {
+        if (Hash::check($credentials['jelszo'], $oktato->jelszo)) {
             Auth::guard('oktato')->login($oktato);
             return redirect()->route('oktatoi.oktatoi');
         }
-    
-        return back()->withErrors(['email' => 'Hibás email vagy jelszó']);
-        if (Auth::guard('tanulo')->check()) {
-            dd("Tanuló be van jelentkezve: ", Auth::guard('tanulo')->user());
-        }
-        
-        if (Auth::guard('oktato')->check()) {
-            dd("Oktató be van jelentkezve: ", Auth::guard('oktato')->user());
-        }
-        
     }
+    return back()->withErrors(['error' => 'Hibás email vagy jelszó!']);
+}
+
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect('/login');
     }
 
     /**

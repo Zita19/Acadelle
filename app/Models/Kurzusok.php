@@ -9,4 +9,10 @@ class Kurzusok extends Model
 {
     /** @use HasFactory<\Database\Factories\KurzusokFactory> */
     use HasFactory;
+
+    protected $table = 'kurzusok';
+    public function tanulok()
+    {
+        return $this->belongsToMany(Tanulo::class, 'kapcsolati_tabla', 'kurzus_id', 'tanulo_id');
+    }
 }

@@ -36,17 +36,13 @@ return [
     */
 
     'guards' => [
-    'web' => [
-        'driver' => 'session',
-        'provider' => 'users',
-    ],
     'tanulo' => [
         'driver' => 'session',
-        'provider' => 'tanulok', 
+        'provider' => 'tanulok',
     ],
     'oktato' => [
         'driver' => 'session',
-        'provider' => 'oktatok', 
+        'provider' => 'oktatok',
     ],
 ],
 
@@ -67,10 +63,6 @@ return [
     |
     */
 'providers' => [
-    'users' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\User::class,
-    ],
     'tanulok' => [
         'driver' => 'eloquent',
         'model' => App\Models\Tanulo::class,
@@ -83,7 +75,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+],
 
     /*
     |--------------------------------------------------------------------------
