@@ -185,7 +185,6 @@ document.getElementById('ingyen').addEventListener('change', function() {
     const courseCount = document.getElementById("course-count");
     const removeAllButton = document.getElementById("remove-all");
 
-    // Egyéni kurzus törlése
     courseContainer.addEventListener("click", function (event) {
         if (event.target.classList.contains("remove-course")) {
             const courseCard = event.target.closest(".course-card");
@@ -197,9 +196,8 @@ document.getElementById('ingyen').addEventListener('change', function() {
         }
     });
 
-    // Összes kurzus törlése
     removeAllButton.addEventListener("click", function () {
-        document.querySelectorAll(".course-card").forEach(course => course.remove()); // Minden kurzus eltávolítása
+        document.querySelectorAll(".course-card").forEach(course => course.remove()); 
         courseCount.textContent = "0";
     });
 });

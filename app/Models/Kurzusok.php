@@ -15,4 +15,11 @@ class Kurzusok extends Model
     {
         return $this->belongsToMany(Tanulo::class, 'kapcsolati_tabla', 'kurzus_id', 'tanulo_id');
     }
+    protected $fillable = [
+        'kurzus_nev',
+        'helyszin',
+        'kepzes_ideje',
+        'online',
+        'dij'
+    ];
 }

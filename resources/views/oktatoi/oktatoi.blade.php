@@ -121,13 +121,14 @@
         </div>
         <div class="courses col-md">
             <h2>Kurzus létrehozás:</h2>
-            <p>Kurzus neve: <input type="text" id="myInput" placeholder="Kurzusnév" title="Kurzusnév megadása"></p>
-            <p>Helyszín: <input type="text" id="myInput" placeholder="Helyszín" title="Helyszín megadása"></p>
-            <p>Időpont: <input type="datetime-local" id="myInput"></p>
-            <p>Ingyenes: <input type="checkbox" id="ingyen" placeholder="ingyenes" title="ingyenes">   Fizetős: <input type="checkbox" id="fizet" placeholder="fizetés" title="fizetés"></p>
-            <input type="number" id="ar" placeholder="ár" title="ár" style="display: none;">
-            <button class="create"><a href="">Létrehozás</a></button>
-            <button class="delete" name="cancel" id="cancel">Kurzus törlése</button>
+            <form action="{{ route('kurzus.letrehozas') }}" method="POST">
+                @csrf
+                <p>Kurzus neve: <input type="text" name="kurzus_nev" placeholder="Kurzusnév" required></p>
+                <p>Helyszín: <input type="text" name="helyszin" placeholder="Helyszín" required></p>
+                <p>Időpont: <input type="datetime-local" name="kepzes_ideje" required></p>
+                <p>Ár: <input type="number" name="dij" placeholder="Ár" required></p>
+                <button type="submit">Létrehozás</button>
+            </form>
         </div>
         
         <div class="courses col-md kurzuslista">
