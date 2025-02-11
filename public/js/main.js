@@ -199,7 +199,7 @@ document.getElementById('ingyen').addEventListener('change', function() {
 
     // Összes kurzus törlése
     removeAllButton.addEventListener("click", function () {
-        document.querySelectorAll(".course-card").forEach(course => course.remove()); // Minden kurzus eltávolítása
+        document.querySelectorAll(".course-card").forEach(course => course.remove()); 
         courseCount.textContent = "0";
     });
 });

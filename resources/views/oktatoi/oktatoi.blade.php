@@ -47,7 +47,12 @@
                 <a href="oktatok" class="nav-item nav-link">Oktatók</a>
                 <a href="kapcsolat" class="nav-item nav-link">Kapcsolat</a>
             </div>
-            <a href="bejelentkezes" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Csatlakozz most!<i class="fa fa-arrow-right ms-3"></i></a>
+            @auth
+                <form id="logout-form" action="{{ route('kijelentkezes') }}" method="POST" class="d-inline">
+                @csrf
+                    <button type="submit" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Kijelentkezés</button>
+                </form>
+            @endauth
         </div>
     </nav>
 
@@ -59,8 +64,11 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <div class="profile-container">
-                                <div class="profile-pic">O</div>
-                                <div class="profile-name">Üdv újra Felhasználó Neve!</div>
+                                @if(isset($oktato))
+                                    <div class="profile-name">Üdv újra, {{ $oktato->nev }}!</div>
+                                @else
+                                    <div class="profile-name">Üdv újra, {{ Auth::guard('oktato')->user()->nev ?? 'Vendég' }}!</div>
+                                @endif
                             </div>
                         </ol>
                     </nav>
@@ -78,6 +86,18 @@
             <p><strong>Felhasználó név:</strong> Felhasználó név</p>
             <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
             
+        @php
+            $oktato = Auth::guard('oktato')->user();
+        @endphp
+        @if(isset($oktato))
+            <h2>Felhasználó adatai</h2>
+            <p><strong>Név:</strong> {{ $oktato->nev }}</p>
+            <p><strong>Felhasználónév:</strong> {{ $oktato->felhasznalonev }}</p>
+            <p><strong>Email:</strong> {{ $oktato->email }}</p>
+        @else
+            <p class="text-center text-danger">Nincs bejelentkezett oktató!</p>
+        @endif
+            <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
             <div class="diaklista">
                 <div class="filterDiv diak1">john</div>
                 <div class="filterDiv diak2">kate</div>
@@ -116,6 +136,14 @@
             <input type="number" id="ar" placeholder="ár" title="ár" style="display: none;">
             <button class="create"><a href="">Létrehozás</a></button>
             <button class="delete" name="cancel" id="cancel">Kurzus törlése</button>
+            <form action="{{ route('kurzus.letrehozas') }}" method="POST">
+                @csrf
+                <p>Kurzus neve: <input type="text" name="kurzus_nev" placeholder="Kurzusnév" required></p>
+                <p>Helyszín: <input type="text" name="helyszin" placeholder="Helyszín" required></p>
+                <p>Időpont: <input type="datetime-local" name="kepzes_ideje" required></p>
+                <p>Ár: <input type="number" name="dij" placeholder="Ár" required></p>
+                <button type="submit">Létrehozás</button>
+            </form>
         </div>
         
         <div class="courses col-md kurzuslista">

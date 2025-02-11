@@ -47,7 +47,12 @@
                 <a href="oktatok" class="nav-item nav-link">Oktatók</a>
                 <a href="kapcsolat" class="nav-item nav-link">Kapcsolat</a>
             </div>
-            <a href="bejelentkezes" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Csatlakozz most!<i class="fa fa-arrow-right ms-3"></i></a>
+            @auth
+                <form id="logout-form" action="{{ route('kijelentkezes') }}" method="POST" class="d-inline">
+                @csrf
+                    <button type="submit" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Kijelentkezés</button>
+                </form>
+            @endauth
         </div>
     </nav>
 
@@ -59,8 +64,11 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <div class="profile-container">
-                                <div class="profile-pic">T</div>
-                                <div class="profile-name">Üdv újra Felhasználó Neve!</div>
+                                @if(isset($tanulo))
+                                    <div class="profile-name">Üdv újra, {{ $tanulo->nev }}!</div>
+                                @else
+                                    <div class="profile-name">Üdv újra, {{ Auth::guard('tanulo')->user()->nev ?? 'Vendég' }}!</div>
+                                @endif
                             </div>
                         </ol>
                     </nav>
@@ -107,6 +115,42 @@
                 <div class="mt-4">
                     <a href="fizetes.html" class="pay-button">Fizetés</a>
                     <button class="signout-button" id="remove-all">Lejelentkezés kurzusról</button>
+            <div class="col-md-4">
+                <div class="card p-4 shadow">
+                @php
+                    $tanulo = Auth::guard('tanulo')->user();
+                @endphp
+                @if($tanulo)
+                    <p><strong>Név:</strong> {{ $tanulo->nev }}</p>
+                    <p><strong>Felhasználónév:</strong> {{ $tanulo->felhasznalonev }}</p>
+                    <p><strong>Email:</strong> {{ $tanulo->email }}</p>
+                    <p><strong>Képzettség:</strong> {{ $tanulo->kepzettseg }}</p>
+                @else
+                    <p>Nincs bejelentkezett felhasználó!</p>
+                @endif
+                <p><strong>Felvett kurzusok száma: </strong>{{ count($kurzusok ?? []) }}
+                </span></p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2 class="mb-3">Felvett kurzusok</h2>
+                <div class="row">
+                @if(isset($kurzusok) && $kurzusok->isNotEmpty())
+                    @foreach($kurzusok as $kurzus)
+                        <div class="col-md-6">
+                            <div class="card p-3 shadow">
+                                <h5 class="text-primary">{{ $kurzus->kurzus_nev }}</h5>
+                                <p><strong>Helyszín:</strong> {{ $kurzus->helyszin }}</p>
+                                <p><strong>Díj:</strong> {{ $kurzus->dij }} Ft</p>
+                                <button class="signout-button remove-course">Leiratkozás</button>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <p>Nincsenek felvett kurzusok.</p>
+                @endif
+                <div class="mt-4">
+                    <a href="fizetes" class="pay-button">Fizetés</a>
                 </div>
             </div>
         </div>

@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kurzusoks', function (Blueprint $table) {
+        Schema::create('kurzusok', function (Blueprint $table) {
             $table->id();
+            $table->string('kurzus_nev');
+            $table->string('helyszin');
+            $table->dateTime('kepzes_ideje');
+            $table->boolean('online')->default(0)->after('helyszin');
+            $table->integer('dij')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kurzusoks');
+        Schema::dropIfExists('kurzusok');
     }
 };

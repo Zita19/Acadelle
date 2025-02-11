@@ -14,4 +14,8 @@ class Tanulo extends Authenticatable
     {
         $this->attributes['jelszo'] = Hash::make($value);
     }
+    public function kurzusok()
+    {
+        return $this->belongsToMany(Kurzusok::class, 'kapcsolati_tabla', 'tanulo_id', 'kurzus_id');
+    }
 }

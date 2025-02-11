@@ -14,4 +14,8 @@ class Oktatok extends Authenticatable
     {
         $this->attributes['jelszo'] = Hash::make($value);
     }
+    public function kurzusok()
+    {
+        return $this->hasMany(Oktatok_kurzusok::class, 'oktato_id');
+    }
 }

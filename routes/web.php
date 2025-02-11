@@ -4,9 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BejelentkezesController;
 use App\Http\Controllers\RegisztracioController;
+use App\Http\Controllers\KurzusokController;
+use App\Http\Controllers\TanuloController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -41,7 +43,7 @@ Route::get('/tanuloi', function (){
 Route::post('/regisztracio', [RegisztracioController::class, 'register']);
 
 Route::get('/login', function () {
-    return view('login'); 
+    return view('login');
 })->name('login');
 
 Route::post('/login', [BejelentkezesController::class, 'login'])->name('login.post');
@@ -49,13 +51,15 @@ Route::post('/login', [BejelentkezesController::class, 'login'])->name('login.po
 Route::post('/logout', [BejelentkezesController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth:tanulo'])->group(function () {
-    Route::get('/tanuloi.tanuloi', function () {
-        return view('tanuloi.tanuloi');
-    })->name('tanuloi.tanuloi');
+    Route::get('/tanuloi', [TanuloController::class, 'index'])->name('tanuloi.tanuloi');
 });
 
 Route::middleware(['auth:oktato'])->group(function () {
-    Route::get('/oktatoi.oktatoi', function () {
+    Route::get('/oktatoi', function () {
         return view('oktatoi.oktatoi');
     })->name('oktatoi.oktatoi');
 });
+
+Route::post('/kijelentkezes', [BejelentkezesController::class, 'logout'])->name('kijelentkezes');
+
+Route::post('/oktatoi', [KurzusokController::class, 'store'])->name('kurzus.letrehozas');

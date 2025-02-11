@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tanulo;
 use App\Http\Requests\StoreTanuloRequest;
 use App\Http\Requests\UpdateTanuloRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TanuloController extends Controller
 {
@@ -14,6 +16,15 @@ class TanuloController extends Controller
     public function index()
     {
         //
+        $tanulo = Auth::guard('tanulo')->user();
+
+        if (!$tanulo) {
+            return redirect()->route('login')->withErrors(['error' => 'Nincs bejelentkezett tanuló!']);
+        }
+
+        $kurzusok = $tanulo->kurzusok()->get(); 
+
+        return view('tanuloi.tanuloi', compact('tanulo', 'kurzusok'));
     }
 
     /**

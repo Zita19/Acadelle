@@ -30,6 +30,24 @@ class KurzusokController extends Controller
     public function store(StoreKurzusokRequest $request)
     {
         //
+        $request->validate([
+            'kurzus_nev' => 'required|string|max:255',
+            'helyszin' => 'required|string|max:255',
+            'kepzes_ideje' => 'required|date',
+            'dij' => 'nullable|integer|min:0'
+        ]);
+    
+        $isOnline = strtolower($request->helyszin) === 'online' ? 1 : 0;
+    
+        Kurzusok::create([
+            'kurzus_nev' => $request->kurzus_nev,
+            'helyszin' => $request->helyszin,
+            'kepzes_ideje' => $request->kepzes_ideje,
+            'dij' => $request->dij,
+            'online' => $isOnline
+        ]);
+    
+        return redirect()->back()->with('success', 'Kurzus sikeresen létrehozva!');
     }
 
     /**

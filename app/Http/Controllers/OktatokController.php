@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Oktatok;
 use App\Http\Requests\StoreOktatokRequest;
 use App\Http\Requests\UpdateOktatokRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OktatokController extends Controller
 {
@@ -14,6 +16,11 @@ class OktatokController extends Controller
     public function index()
     {
         //
+        $oktato = Auth::guard('oktato')->user();
+
+        if ($oktato) {
+            return view('oktatoi.oktatoi', ['oktato' => $oktato]);
+        }
     }
 
     /**
