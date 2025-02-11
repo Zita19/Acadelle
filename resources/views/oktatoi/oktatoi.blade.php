@@ -79,13 +79,6 @@
 
     <div class="user-info-container row">
         <div class="user-details col-md">
-            <h2>Felhasználó adatai</h2>
-            <p><strong>Email:</strong> pelda@valami.hu</p>
-            <p><strong>Kurzusok száma:</strong> 3</p>
-            <p><strong>Név:</strong> Valami</p>
-            <p><strong>Felhasználó név:</strong> Felhasználó név</p>
-            <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
-            
         @php
             $oktato = Auth::guard('oktato')->user();
         @endphp
@@ -127,15 +120,6 @@
             </div>
         </div>
         <div class="courses col-md">
-            <h2>Kurzus létrehozás:</h2>
-            <p>Kurzus neve: <input type="text" id="myInput" placeholder="Kurzusnév" title="Kurzusnév megadása"></p>
-            <p>Helyszín: <input type="text" id="myInput" placeholder="Helyszín" title="Helyszín megadása"></p>
-            <p>Tanulók száma: <input type="number" id="myInput" placeholder="Tanulók max" title="Maximum szám"></p>
-            <p>Időpont: <input type="datetime-local" id="myInput"></p>
-            <p>Ingyenes: <input type="checkbox" id="ingyen" placeholder="ingyenes" title="ingyenes">   Fizetős: <input type="checkbox" id="fizet" placeholder="fizetés" title="fizetés"></p>
-            <input type="number" id="ar" placeholder="ár" title="ár" style="display: none;">
-            <button class="create"><a href="">Létrehozás</a></button>
-            <button class="delete" name="cancel" id="cancel">Kurzus törlése</button>
             <form action="{{ route('kurzus.letrehozas') }}" method="POST">
                 @csrf
                 <p>Kurzus neve: <input type="text" name="kurzus_nev" placeholder="Kurzusnév" required></p>
