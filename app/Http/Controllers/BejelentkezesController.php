@@ -24,13 +24,13 @@ class BejelentkezesController extends Controller
         }
     }
     $oktato = Oktatok::where('email', $credentials['email'])->first();
-    if ($oktato) {
-        if (Hash::check($credentials['jelszo'], $oktato->jelszo)) {
-            Auth::guard('oktato')->login($oktato);
-            return redirect()->route('oktatoi.oktatoi');
-        }
-    }
-    return back()->withErrors(['error' => 'Hibás email vagy jelszó!']);
+    if ($oktato && Hash::check($credentials['jelszo'], $oktato->jelszo)) {
+        Auth::guard('oktato')->login($oktato);
+        session()->regenerate(); 
+        return redirect()->route('oktatoi.oktatoi');
+    } else {
+    return back()->withErrors(['email' => 'Hibás bejelentkezési adatok!']);
+}
 }
 
 

@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Oktatok;
-use App\Http\Requests\StoreOktatokRequest;
-use App\Http\Requests\UpdateOktatokRequest;
+use Illuminate\Http\Request;
+use App\Models\Kurzusok;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class OktatokController extends Controller
+class JelentkezesController extends Controller
 {
+    public function jelentkezeskurzusra(Request $request)
+    {
+        $tanulo = Auth::user(); 
+        $kurzus = Kurzusok::findOrFail($request->kurzus_id); 
+        
+        $tanulo->kurzusok()->attach($kurzus->id, [ 
+            'befizetett_osszeg' => $request->befizetett_osszeg
+        ]);
+
+        return redirect()->back()->with('success', 'Sikeresen jelentkeztél a kurzusra!');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
-        $oktato = Auth::guard('oktato')->user();
-    
-            if (!$oktato) {
-            abort(403, 'Nem vagy bejelentkezve mint oktató!');
-    }
-            return view('oktatoi.oktatoi', ['oktato' => $oktato]);
     }
 
     /**
@@ -35,7 +38,7 @@ class OktatokController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOktatokRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -43,7 +46,7 @@ class OktatokController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Oktatok $oktatok)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +54,7 @@ class OktatokController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Oktatok $oktatok)
+    public function edit(string $id)
     {
         //
     }
@@ -59,7 +62,7 @@ class OktatokController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOktatokRequest $request, Oktatok $oktatok)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -67,7 +70,7 @@ class OktatokController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Oktatok $oktatok)
+    public function destroy(string $id)
     {
         //
     }

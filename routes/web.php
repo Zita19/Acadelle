@@ -60,6 +60,8 @@ Route::middleware(['auth:oktato'])->group(function () {
     })->name('oktatoi.oktatoi');
 });
 
+Route::post('/kurzus', [KurzusokController::class, 'store'])->name('kurzus.store');
+
 Route::post('/kijelentkezes', [BejelentkezesController::class, 'logout'])->name('kijelentkezes');
 
-Route::post('/oktatoi', [KurzusokController::class, 'store'])->name('kurzus.letrehozas');
+Route::post('/oktatoi.oktatoi', [KurzusokController::class, 'store'])->name('kurzus.letrehozas');

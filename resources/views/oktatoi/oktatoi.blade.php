@@ -120,15 +120,36 @@
             </div>
         </div>
         <div class="courses col-md">
-            <form action="{{ route('kurzus.letrehozas') }}" method="POST">
-                @csrf
-                <p>Kurzus neve: <input type="text" name="kurzus_nev" placeholder="Kurzusnév" required></p>
-                <p>Helyszín: <input type="text" name="helyszin" placeholder="Helyszín" required></p>
-                <p>Időpont: <input type="datetime-local" name="kepzes_ideje" required></p>
-                <p>Ár: <input type="number" name="dij" placeholder="Ár" required></p>
-                <button type="submit">Létrehozás</button>
-            </form>
+        <div class="container">
+        <h3>Kurzus létrehozása</h3>
+         
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        <form action="{{ route('kurzus.store') }}" method="POST">
+            @csrf
+            <div>
+                <label>Kurzus neve:</label>
+                <input type="text" name="kurzus_nev" required>
+            </div>
+            <div>
+                <label>Helyszín:</label>
+                <input type="text" name="helyszin" required>
+                <small>Írj "online"-t, ha online képzés!</small>
+            </div>
+            <div>
+                <label>Időpont:</label>
+                <input type="datetime-local" name="kepzes_ideje" required>
+            </div>
+            <div>
+                <label>Ár:</label>
+                <input type="number" name="dij">
+            </div>
+
+            <button type="submit">Létrehozás</button>
+        </form>
         </div>
+    </div>
         
         <div class="courses col-md kurzuslista">
             <p><strong>Kurzusok listája:</strong><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Keresés" title="Keresés itt"></p>

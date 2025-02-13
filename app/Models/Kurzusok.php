@@ -22,4 +22,11 @@ class Kurzusok extends Model
         'online',
         'dij'
     ];
+
+    public function kapcsolatok()
+    {
+        return $this->belongsToMany(Tanulo::class, 'kapcsolati_tabla', 'kurzus_id', 'tanulo_id')
+                    ->withPivot('befizetett_osszeg')
+                    ->withTimestamps();
+    }
 }

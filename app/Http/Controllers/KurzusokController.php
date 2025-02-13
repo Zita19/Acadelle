@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kurzusok;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreKurzusokRequest;
 use App\Http\Requests\UpdateKurzusokRequest;
+use Illuminate\Support\Facades\Auth;
 
 class KurzusokController extends Controller
 {
@@ -22,31 +24,31 @@ class KurzusokController extends Controller
     public function create()
     {
         //
+        return view('oktato.kurzus-letrehozas');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKurzusokRequest $request)
+    public function store(Request $request)
     {
-        //
         $request->validate([
             'kurzus_nev' => 'required|string|max:255',
             'helyszin' => 'required|string|max:255',
             'kepzes_ideje' => 'required|date',
-            'dij' => 'nullable|integer|min:0'
+            'dij' => 'nullable|integer|min:0',
         ]);
-    
-        $isOnline = strtolower($request->helyszin) === 'online' ? 1 : 0;
-    
+
+        $online = strtolower($request->helyszin) == 'online' ? 1 : 0;
+
         Kurzusok::create([
             'kurzus_nev' => $request->kurzus_nev,
             'helyszin' => $request->helyszin,
+            'online' => $online,
             'kepzes_ideje' => $request->kepzes_ideje,
             'dij' => $request->dij,
-            'online' => $isOnline
         ]);
-    
+
         return redirect()->back()->with('success', 'Kurzus sikeresen létrehozva!');
     }
 
