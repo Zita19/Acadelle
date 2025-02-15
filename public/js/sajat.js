@@ -23,3 +23,7 @@ function feliratkozas(){
         window.alert("Feliratkozott a hírlevélre!");
     }
 };
+
+function jelent(){
+    alert("A jelentkezést elküldte az oktatónak.");
+}
