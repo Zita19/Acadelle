@@ -15,7 +15,8 @@ class KurzusokController extends Controller
      */
     public function index()
     {
-        //
+        $kurzusok = Kurzusok::all();
+        return view('oktato.kurzusok-lista', compact('kurzusok'));
     }
 
     /**
