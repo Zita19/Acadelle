@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisztracioController;
 use App\Http\Controllers\KurzusokController;
 use App\Http\Controllers\TanuloController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KurzusokController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -66,3 +67,5 @@ Route::post('/kurzus', [KurzusokController::class, 'store'])->name('kurzus.store
 Route::post('/kijelentkezes', [KijelentkezesController::class, 'kijelentkezes'])->name('kijelentkezes');
 
 Route::post('/oktatoi.oktatoi', [KurzusokController::class, 'store'])->name('kurzus.letrehozas');
+
+Route::get('/kurzusok', [KurzusokController::class, 'index'])->name('kurzusok.index');
