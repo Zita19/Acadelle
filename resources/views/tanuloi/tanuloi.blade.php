@@ -107,7 +107,10 @@
                                 <h5 class="text-primary">{{ $kurzus->kurzus_nev }}</h5>
                                 <p><strong>Helyszín:</strong> {{ $kurzus->helyszin }}</p>
                                 <p><strong>Díj:</strong> {{ $kurzus->dij }} Ft</p>
-                                <button class="signout-button remove-course">Leiratkozás</button>
+                                <form action="{{ route('tanulo.leaveCourse', $kurzus->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Leiratkozás</button>
+                                </form>
                             </div>
                         </div>
                     @endforeach
