@@ -69,3 +69,5 @@ Route::post('/kijelentkezes', [KijelentkezesController::class, 'kijelentkezes'])
 Route::post('/oktatoi.oktatoi', [KurzusokController::class, 'store'])->name('kurzus.letrehozas');
 
 Route::get('/kurzusok', [KurzusokController::class, 'index'])->name('kurzusok.index');
+
+Route::post('/tanulo/kurzus/{kurzus_id}/leiratkozas', [TanuloController::class, 'leaveCourse'])->name('tanulo.leaveCourse');
