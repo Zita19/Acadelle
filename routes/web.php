@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BejelentkezesController;
+use App\Http\Controllers\Auth\KijelentkezesController;
 use App\Http\Controllers\RegisztracioController;
 use App\Http\Controllers\KurzusokController;
 use App\Http\Controllers\TanuloController;
@@ -62,6 +63,6 @@ Route::middleware(['auth:oktato'])->group(function () {
 
 Route::post('/kurzus', [KurzusokController::class, 'store'])->name('kurzus.store');
 
-Route::post('/kijelentkezes', [BejelentkezesController::class, 'logout'])->name('kijelentkezes');
+Route::post('/kijelentkezes', [KijelentkezesController::class, 'kijelentkezes'])->name('kijelentkezes');
 
 Route::post('/oktatoi.oktatoi', [KurzusokController::class, 'store'])->name('kurzus.letrehozas');
