@@ -8,7 +8,6 @@ use App\Http\Controllers\RegisztracioController;
 use App\Http\Controllers\KurzusokController;
 use App\Http\Controllers\TanuloController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KurzusokController;
 
 Route::get('/welcome', function () {
     return view('welcome');
