@@ -109,20 +109,19 @@ function myFunction() {
     }
 }
 
-function kurzus() {
-    var input, filter, div, i, txtValue;
-    input = document.getElementById("kurzuskereso");
-    filter = input.value.toUpperCase();
-    div = document.getElementsByClassName("filterDiv");
-    for (i = 0; i < div.length; i++) {
-        txtValue = div[i].textContent || div[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            div[i].style.display = "";
+document.getElementById("search").addEventListener("keyup", function() {
+    let filter = this.value.toLowerCase();
+    let cards = document.querySelectorAll(".kartya");
+
+    cards.forEach(card => {
+        let title = card.querySelector(".kartya-title").innerText.toLowerCase();
+        if (title.includes(filter)) {
+            card.parentElement.style.display = "block";
         } else {
-            div[i].style.display = "none";
+            card.parentElement.style.display = "none";
         }
-    }
-}
+    });
+});
 
 filterSelection("all")
 function filterSelection(c) {
@@ -132,17 +131,6 @@ if (c == "all") c = "";
 for (i = 0; i < x.length; i++) {
     w3RemoveClass(x[i], "show");
     if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-}
-}
-
-function filterSelection(category) {
-var elements = document.getElementsByClassName("filterDiv");
-for (var i = 0; i < elements.length; i++) {
-    if (category === "all" || elements[i].classList.contains(category)) {
-        elements[i].style.display = "block";
-    } else {
-        elements[i].style.display = "none";
-    }
 }
 }
 

@@ -68,190 +68,60 @@
     </div>
 
     <div class="container-xxl py-5 category">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Kategóriák</h6>
-                <h1 class="mb-5">Kurzus kategóriák</h1>
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Kategóriák</h6>
+            <h1 class="mb-5">Kurzusok</h1>
+        </div>
+        <div>
+            <div class="col-md-6 mx-auto mb-4">
+                <input type="text" id="search" class="form-control" placeholder="Keresés kurzusok között...">
             </div>
-            <div>
-                <div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Keresés kurzusok között...">
-                </div>
-                <div class="col-md-6 text-md-end text-center">
-                    <select class="form-select w-auto d-inline-block">
-                        <option class="gomb active" onclick="filterSelection('all')">Kategóriák</option>
-                        <option class="gomb" onclick="filterSelection('inf')">Informatika</option>
-                        <option class="gomb" onclick="filterSelection('math')">Matek</option>
-                        <option class="gomb" onclick="filterSelection('bio')">Biológia</option>
-                        <option class="gomb" onclick="filterSelection('history')">Történelem</option>
-                        <option class="gomb" onclick="filterSelection('lit')">Irodalom</option>
-                        <option class="gomb" onclick="filterSelection('prog')">Programozás</option>
-                        <option class="gomb" onclick="filterSelection('lang')">Nyelv</option>
-                        <option class="gomb" onclick="filterSelection('video')">Videó</option>
-                        <option class="gomb" onclick="filterSelection('marketing')">Marketing</option>
-                        <option class="gomb" onclick="filterSelection('chem')">Kémia</option>
-                    </select>
+        </div>
+        <div class="row">
+        @foreach ($kurzusok as $kurzus)
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="kartya p-3 border rounded shadow-sm">
+                <div class="kartya-body">
+                    <h5 class="kartya-title">{{ $kurzus->kurzus_nev }}</h5>
+                    <p><strong>Időpont:</strong> {{ $kurzus->kepzes_ideje }}</p>
+                    <p><strong>Helyszín:</strong> {{ $kurzus->helyszin }}</p>
+                    <p><strong>Oktató:</strong> 
+                        @if ($kurzus->oktatok->isNotEmpty())
+                            {{ $kurzus->oktatok->first()->nev }}
+                        @else
+                            Nincs oktató hozzárendelve
+                        @endif
+                    </p>
+                    <p><strong>Fizetendő összeg:</strong> 
+                    @if($kurzus->dij)
+                    {{ number_format($kurzus->dij, 0, ',', ' ') }} Ft
+                        @else
+                            Nincs fizetési adat
+                        @endif
+                    </p>
+                    <form action="{{ route('kurzus.jelentkezes', $kurzus->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="jelentkezes btn btn-primary">Jelentkezés</button>
+                    </form>
+
+                    @if(session('success'))
+                        <div class="alert alert-success mt-2">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger mt-2">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                 </div>
             </div>
-            <div class="lista">
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 1 (John)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 2 (Kate)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 3 (Kevin)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 4 (Jenny)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 5 (Nick)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 6 (Patrick)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 7 (Mary)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 8 (Nick)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 9 (Steve)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 10 (Clair)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 11 (Jill)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 12 (John)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 13 (Clair)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 14 (Steve)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 15 (Jill)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 16 (Adam)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 17 (Kevin)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 18 (Matt)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 19 (Jenny)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 20 (Derek)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 21 (Mary)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 22 (Penny)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 23 (Patrick)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 24 (Josh)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-                <div class="kartya">
-                    <div class="kartya-body">
-                        <h5 class="kartya-title">Kurzus 25 (Zoe)</h5>
-                        <button class="jelentkezes">Jelentkezés</button>
-                    </div>
-                </div>
-              </div>
         </div>
     </div>
-
+    @endforeach
+    </div>
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">

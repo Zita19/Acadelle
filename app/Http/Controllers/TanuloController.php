@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kurzus;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class TanuloController extends Controller
 {
@@ -28,7 +29,31 @@ class TanuloController extends Controller
 
         return view('tanuloi.tanuloi', compact('tanulo', 'kurzusok'));
     }
+    public function jelentkezes($kurzus_id)
+    {
+        $tanulo = Auth::guard('tanulo')->user();
 
+        if (!$tanulo) {
+            return redirect()->route('login')->withErrors(['error' => 'Be kell jelentkezni a jelentkezéshez!']);
+        }
+        $letezik = DB::table('kapcsolati_tabla')
+                    ->where('tanulo_id', $tanulo->id)
+                    ->where('kurzus_id', $kurzus_id)
+                    ->exists();
+
+        if ($letezik) {
+            return redirect()->back()->withErrors(['error' => 'Már jelentkeztél erre a kurzusra!']);
+        }
+        DB::table('kapcsolati_tabla')->insert([
+            'tanulo_id' => $tanulo->id,
+            'kurzus_id' => $kurzus_id,
+            'befizetett_osszeg' => 0, 
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return redirect()->back()->with('success', 'Sikeresen jelentkeztél a kurzusra!');
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -100,23 +125,5 @@ class TanuloController extends Controller
         Auth::guard('tanulo')->logout();
 
         return redirect()->route('welcome')->with('success', 'Felhasználó törölve!');
-    }
-    
-    public function __construct()
-    {
-        $this->middleware('auth:tanulo');
-    }
-
-    public function leaveCourse($kurzus_id)
-    {
-        $tanulo = Auth::guard('tanulo')->user();
-        $kurzus = Kurzus::findOrFail($kurzus_id);
-
-        if ($tanulo->kurzusok()->where('kurzus_id', $kurzus_id)->exists()) {
-            $tanulo->kurzusok()->detach($kurzus_id);
-            return redirect()->back()->with('success', 'Sikeresen leiratkoztál a kurzusról!');
-        }
-
-        return redirect()->back()->with('error', 'Nem vagy feliratkozva erre a kurzusra.');
     }
 }

@@ -44,7 +44,7 @@ Route::get('/tanuloi', function (){
 Route::post('/regisztracio', [RegisztracioController::class, 'register']);
 
 Route::get('/login', function () {
-    return view('login');
+    return view('bejelentkezes');
 })->name('login');
 
 Route::post('/login', [BejelentkezesController::class, 'login'])->name('login.post');
@@ -70,3 +70,7 @@ Route::post('/oktatoi.oktatoi', [KurzusokController::class, 'store'])->name('kur
 Route::get('/kurzusok', [KurzusokController::class, 'index'])->name('kurzusok.index');
 
 Route::post('/tanulo/kurzus/{kurzus_id}/leiratkozas', [TanuloController::class, 'leaveCourse'])->name('tanulo.leaveCourse');
+
+Route::get('/kurzusok', [KurzusokController::class, 'kurzusoklekerdezes'])->name('kurzusok.kurzuslekerdezes');
+
+Route::post('/jelentkezes/{kurzus}', [TanuloController::class, 'jelentkezes'])->name('kurzus.jelentkezes')->middleware('auth:tanulo');

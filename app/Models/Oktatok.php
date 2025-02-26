@@ -16,7 +16,6 @@ class Oktatok extends Authenticatable
     }
     public function kurzusok()
     {
-        return $this->hasMany(Oktatok_kurzusok::class, 'oktato_id')
-                    ->withTimestamps();        
+        return $this->belongsToMany(Kurzusok::class, 'oktatok_kurzusok', 'oktato_id', 'kurzus_id');
     }
 }

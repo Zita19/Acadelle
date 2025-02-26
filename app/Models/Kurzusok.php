@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Oktatok;
 
 class Kurzusok extends Model
 {
@@ -13,14 +14,17 @@ class Kurzusok extends Model
     protected $table = 'kurzusok';
     public function tanulok()
     {
-        return $this->belongsToMany(Tanulo::class, 'kapcsolati_tabla', 'kurzus_id', 'tanulo_id');
+        return $this->belongsToMany(Tanulo::class, 'kapcsolati_tabla', 'kurzus_id', 'tanulo_id')
+                ->withPivot('befizetett_osszeg')
+                ->withTimestamps();
     }
     protected $fillable = [
         'kurzus_nev',
         'helyszin',
         'kepzes_ideje',
         'online',
-        'dij'
+        'dij',
+        'oktato_id'
     ];
 
     public function kapcsolatok()
@@ -28,5 +32,9 @@ class Kurzusok extends Model
         return $this->belongsToMany(Tanulo::class, 'kapcsolati_tabla', 'kurzus_id', 'tanulo_id')
                     ->withPivot('befizetett_osszeg')
                     ->withTimestamps();
+    }
+    public function oktatok()
+    {
+        return $this->belongsToMany(Oktatok::class, 'oktatok_kurzusok', 'kurzus_id', 'oktato_id');
     }
 }

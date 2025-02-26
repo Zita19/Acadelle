@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kurzusok;
+use App\Models\Kapcsolati_tabla;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreKurzusokRequest;
 use App\Http\Requests\UpdateKurzusokRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KurzusokController extends Controller
 {
@@ -16,7 +18,12 @@ class KurzusokController extends Controller
     public function index()
     {
         $kurzusok = Kurzusok::all();
-        return view('oktatoi.kurzusok-lista', compact('kurzusok'));
+        return view('kurzusok', compact('kurzusok'));
+    }
+    public function kurzusoklekerdezes()
+    {
+        $kurzusok = Kurzusok::with(['oktatok', 'kapcsolatok'])->get();
+        return view('kurzusok', compact('kurzusok'));
     }
     /**
      * Show the form for creating a new resource.
@@ -37,16 +44,38 @@ class KurzusokController extends Controller
             'helyszin' => 'required|string|max:255',
             'kepzes_ideje' => 'required|date',
             'dij' => 'nullable|integer|min:0',
+            'oktatok' => 'nullable|array', 
+            'oktatok.*' => 'exists:oktatok,id'
         ]);
 
         $online = strtolower($request->helyszin) == 'online' ? 1 : 0;
 
-        Kurzusok::create([
+        $kurzus = Kurzusok::create([
             'kurzus_nev' => $request->kurzus_nev,
             'helyszin' => $request->helyszin,
             'online' => $online,
             'kepzes_ideje' => $request->kepzes_ideje,
             'dij' => $request->dij,
+        ]);
+        if (!$kurzus) {
+            return redirect()->back()->withErrors(['error' => 'Kurzus létrehozása sikertelen!']);
+        }
+        if ($request->has('oktatok')) {
+            foreach ($request->oktatok as $oktatok_id) {
+                DB::table('oktatok_kurzusok')->insert([
+                    'kurzus_id' => $kurzus->id,
+                    'oktatok_id' => $oktatok_id,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }    
+        }    
+        DB::table('kapcsolati_tabla')->insert([
+            'kurzus_id' => $kurzus->id,
+            'tanulo_id' => null,   
+            'befizetett_osszeg' => null,  
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         return redirect()->back()->with('success', 'Kurzus sikeresen létrehozva!');
