@@ -18,14 +18,13 @@ class KurzusokController extends Controller
         $kurzusok = Kurzusok::all();
         return view('oktatoi.kurzusok-lista', compact('kurzusok'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         //
-        return view('oktato.kurzus-letrehozas');
+        return view('oktatoi.kurzus-letrehozas');
     }
 
     /**
