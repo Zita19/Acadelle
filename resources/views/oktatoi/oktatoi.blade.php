@@ -60,18 +60,15 @@
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown"></h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <div class="profile-container">
-                                @if(isset($oktato))
-                                    <div class="profile-name">Üdv újra, {{ $oktato->nev }}!</div>
-                                @else
-                                    <div class="profile-name">Üdv újra, {{ Auth::guard('oktato')->user()->nev ?? 'Vendég' }}!</div>
-                                @endif
-                            </div>
-                        </ol>
-                    </nav>
+                    <h1 class="display-3 text-white animated slideInDown">
+                        <div>
+                            @if(isset($oktato))
+                                <div>Üdv újra, {{ $oktato->nev }}!</div>
+                            @else
+                                <div>Üdv újra, {{ Auth::guard('oktato')->user()->nev ?? 'Vendég' }}!</div>
+                            @endif
+                        </div>
+                    </h1>
                 </div>
             </div>
         </div>
@@ -90,33 +87,34 @@
         @else
             <p class="text-center text-danger">Nincs bejelentkezett oktató!</p>
         @endif
-            <p><strong>Tanulók listája:</strong><input type="text" id="kurzuskereso" onkeyup="kurzus()" placeholder="Keresés" title="Keresés itt"></p>
+            <p><strong>Tanulók listája:</strong></p>
             <div class="diaklista">
-                <div class="filterDiv diak1">john</div>
-                <div class="filterDiv diak2">kate</div>
-                <div class="filterDiv diak3">kevin</div>
-                <div class="filterDiv diak4">jenny</div>
-                <div class="filterDiv diak5">nick</div>
-                <div class="filterDiv diak6">patric</div>
-                <div class="filterDiv diak7">mary</div>
-                <div class="filterDiv diak8">nick</div>
-                <div class="filterDiv diak9">steve</div>
-                <div class="filterDiv diak10">clair</div>
-                <div class="filterDiv diak11">jill</div>
-                <div class="filterDiv diak12">john</div>
-                <div class="filterDiv diak13">clair</div>
-                <div class="filterDiv diak14">steve</div>
-                <div class="filterDiv diak15">jill</div>
-                <div class="filterDiv diak16">adam</div>
-                <div class="filterDiv diak17">kevin</div>
-                <div class="filterDiv diak18">matt</div>
-                <div class="filterDiv diak19">jenny</div>
-                <div class="filterDiv diak20">derek</div>
-                <div class="filterDiv diak21">mary</div>
-                <div class="filterDiv diak22">penny</div>
-                <div class="filterDiv diak23">patric</div>
-                <div class="filterDiv diak24">josh</div>
-                <div class="filterDiv diak25">Zoe</div>
+            <table class="table">
+        @if(isset($tanulok))
+            Nincs nincsenek tanulók!
+        @else
+            <thead>
+                <tr>
+                    <th>Tanuló Neve: </th>
+                    <th>Kurzus Neve: </th>
+                    <th>Befizetett Összeg: </th>
+                </tr>
+            </thead>
+            <tbody>
+            @if(isset($tanulok))
+                @foreach($tanulok as $tanulo)
+                    <tr>
+                        <td>{{ $tanulo->tanulo_nev }}</td>
+                        <td>{{ $tanulo->kurzus_nev }}</td>
+                        <td>{{ $tanulo->befizetett_osszeg > 0 ? $tanulo->befizetett_osszeg . ' Ft' : 'Nem fizetett' }}</td>
+                    </tr>
+                @endforeach
+                @else
+                    Nincsenek tanulók!
+                @endif
+            </tbody>
+        @endif
+        </table>
             </div>
         </div>
         <div class="courses col-md">
@@ -150,14 +148,40 @@
         </form>
         </div>
     </div>
-        
         <div class="courses col-md kurzuslista">
-            <p><strong>Kurzusok listája:</strong><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Keresés" title="Keresés itt"></p>
-            <div class="filterDiv kurzus1">kurzus1</div>
-            <div class="filterDiv kurzus2">kurzus2</div>
-            <div class="filterDiv kurzus3">kurzus3</div>
-            <div class="filterDiv kurzus4">kurzus4</div>
-            <div class="filterDiv kurzus5">kurzus5</div>
+            <h3>Kurzusok: </h3>
+        @if(isset($kurzusok) && $kurzusok->isEmpty())
+            <p>Nincsenek kurzusok.</p>
+        @else
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Kurzus Neve</th>
+                        <th>Ár</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(isset($kurzusok))
+                    @foreach($kurzusok as $kurzus)
+                        <tr>
+                            <td>{{ $kurzus->kurzus_nev }}</td>
+                            <td>{{ $kurzus->ar }} Ft</td>
+                            <td>
+                                <form action="{{ route('kurzus.torol', $kurzus->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Törlés</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @else
+                        Nincsenek kurzusok!
+                    @endif
+                </tbody>
+            </table>
+        @endif
         </div>
     </div>
 

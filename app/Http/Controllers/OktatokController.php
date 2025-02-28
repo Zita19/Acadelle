@@ -23,6 +23,29 @@ class OktatokController extends Controller
     }
             return view('oktatoi.oktatoi', ['oktato' => $oktato]);
     }
+    public function tanulok()
+    {
+        $oktato = Auth::guard('tanulo')->user();
+        $tanulok = DB::table('kapcsolati_tabla')
+            ->join('kurzusok', 'kapcsolati_tabla.kurzus_id', '=', 'kurzusok.id')
+            ->join('oktatok_kurzusok', 'kurzusok.id', '=', 'oktatok_kurzusok.kurzus_id')
+            ->join('tanulo', 'kapcsolati_tabla.tanulo_id', '=', 'tanulo.id')
+            ->where('oktatok_kurzusok.oktato_id', $oktato)
+            ->select('tanulo.nev as tanulo_nev', 'kurzusok.kurzus_nev', 'kapcsolati_tabla.befizetett_osszeg')
+            ->get();
+        return view('oktatoi.oktatoi', compact('tanulok'));
+    }
+    public function kurzusok()
+    {
+        $oktato = auth()->id();
+        $kurzusok = DB::table('kurzusok')
+            ->join('oktatok_kurzusok', 'kurzusok.id', '=', 'oktatok_kurzusok.kurzus_id')
+            ->where('oktatok_kurzusok.oktato_id', $oktato)
+            ->select('kurzusok.id', 'kurzusok.kurzus_nev', 'kurzusok.dij')
+            ->get();
+
+        return view('oktatoi.oktatoi', compact('kurzusok'));
+    }
 
     /**
      * Show the form for creating a new resource.

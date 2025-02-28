@@ -73,11 +73,6 @@
             <h6 class="section-title bg-white text-center text-primary px-3">Kategóriák</h6>
             <h1 class="mb-5">Kurzusok</h1>
         </div>
-        <div>
-            <div class="col-md-6 mx-auto mb-4">
-                <input type="text" id="search" class="form-control" placeholder="Keresés kurzusok között...">
-            </div>
-        </div>
         <div class="row">
         @foreach ($kurzusok as $kurzus)
         <div class="col-lg-4 col-md-6 mb-4">

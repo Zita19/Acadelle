@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BejelentkezesController;
+use App\Http\Controllers\OktatokController;
 use App\Http\Controllers\Auth\KijelentkezesController;
 use App\Http\Controllers\RegisztracioController;
 use App\Http\Controllers\KurzusokController;
@@ -74,3 +75,7 @@ Route::post('/tanulo/kurzus/{kurzus_id}/leiratkozas', [TanuloController::class, 
 Route::get('/kurzusok', [KurzusokController::class, 'kurzusoklekerdezes'])->name('kurzusok.kurzuslekerdezes');
 
 Route::post('/jelentkezes/{kurzus}', [TanuloController::class, 'jelentkezes'])->name('kurzus.jelentkezes')->middleware('auth:tanulo');
+
+Route::get('/oktatoi.oktatoi', [OktatokController::class, 'tanulok'])->name('oktatok.tanulok');
+
+Route::get('/oktatoi.oktatoi', [OktatokController::class, 'kurzusok'])->name('oktatok.kurzusok');
