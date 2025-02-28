@@ -10,7 +10,7 @@ use App\Http\Controllers\KurzusokController;
 use App\Http\Controllers\TanuloController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
