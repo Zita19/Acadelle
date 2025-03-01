@@ -60,18 +60,15 @@
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown"></h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <div class="profile-container">
-                                @if(isset($tanulo))
-                                    <div class="profile-name">Üdv újra, {{ $tanulo->nev }}!</div>
-                                @else
-                                    <div class="profile-name">Üdv újra, {{ Auth::guard('tanulo')->user()->nev ?? 'Vendég' }}!</div>
-                                @endif
-                            </div>
-                        </ol>
-                    </nav>
+                    <h1 class="display-3 text-white animated slideInDown">
+                        <div>
+                            @if(isset($tanulo))
+                                <div class="profile-name">Üdv újra, {{ $tanulo->nev }}!</div>
+                            @else
+                                <div class="profile-name">Üdv újra, {{ Auth::guard('tanulo')->user()->nev ?? 'Vendég' }}!</div>
+                            @endif
+                        </div>
+                    </h1>
                 </div>
             </div>
         </div>
@@ -81,20 +78,20 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card p-4 shadow">
-                @php
-                    $tanulo = Auth::guard('tanulo')->user();
-                @endphp
-                <h2 class="text-primary">Felhasználó adatai</h2>
-                @if($tanulo)
-                    <p><strong>Név:</strong> {{ $tanulo->nev }}</p>
-                    <p><strong>Felhasználónév:</strong> {{ $tanulo->felhasznalonev }}</p>
-                    <p><strong>Email:</strong> {{ $tanulo->email }}</p>
-                    <p><strong>Képzettség:</strong> {{ $tanulo->kepzettseg }}</p>
-                @else
-                    <p>Nincs bejelentkezett felhasználó!</p>
-                @endif
-                <p><strong>Felvett kurzusok száma: </strong>{{ count($kurzusok ?? []) }}
-                </span></p>
+                    @php
+                        $tanulo = Auth::guard('tanulo')->user();
+                    @endphp
+                    <h2 class="text-primary">Felhasználó adatai</h2>
+                    @if($tanulo)
+                        <p><strong>Név:</strong> {{ $tanulo->nev }}</p>
+                        <p><strong>Felhasználónév:</strong> {{ $tanulo->felhasznalonev }}</p>
+                        <p><strong>Email:</strong> {{ $tanulo->email }}</p>
+                        <p><strong>Képzettség:</strong> {{ $tanulo->kepzettseg }}</p>
+                    @else
+                        <p>Nincs bejelentkezett felhasználó!</p>
+                    @endif
+                    <p><strong>Felvett kurzusok száma: </strong>{{ count($kurzusok ?? []) }}
+                    </span></p>
                 </div>
             </div>
             <div class="col-md-8">

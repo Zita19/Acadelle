@@ -73,118 +73,125 @@
             </div>
         </div>
     </div>
-
-    <div class="user-info-container row">
-        <div class="user-details col-md">
-        @php
-            $oktato = Auth::guard('oktato')->user();
-        @endphp
-        @if(isset($oktato))
-            <h2>Felhasználó adatai</h2>
-            <p><strong>Név:</strong> {{ $oktato->nev }}</p>
-            <p><strong>Felhasználónév:</strong> {{ $oktato->felhasznalonev }}</p>
-            <p><strong>Email:</strong> {{ $oktato->email }}</p>
-        @else
-            <p class="text-center text-danger">Nincs bejelentkezett oktató!</p>
-        @endif
-            <p><strong>Tanulók listája:</strong></p>
-            <div class="diaklista">
-            <table class="table">
-        @if(isset($tanulok))
-            Nincs nincsenek tanulók!
-        @else
-            <thead>
-                <tr>
-                    <th>Tanuló Neve: </th>
-                    <th>Kurzus Neve: </th>
-                    <th>Befizetett Összeg: </th>
-                </tr>
-            </thead>
-            <tbody>
-            @if(isset($tanulok))
-                @foreach($tanulok as $tanulo)
-                    <tr>
-                        <td>{{ $tanulo->tanulo_nev }}</td>
-                        <td>{{ $tanulo->kurzus_nev }}</td>
-                        <td>{{ $tanulo->befizetett_osszeg > 0 ? $tanulo->befizetett_osszeg . ' Ft' : 'Nem fizetett' }}</td>
-                    </tr>
-                @endforeach
+    <div class="container mt-5">
+        <class="row">
+            <div class="col-md-4">
+                <div class="card p-4 shadow">   
+                @php
+                    $oktato = Auth::guard('oktato')->user();
+                @endphp
+                @if(isset($oktato))
+                    <h2 class="text-primary">Felhasználó adatai</h2>
+                    <p><strong>Név:</strong> {{ $oktato->nev }}</p>
+                    <p><strong>Felhasználónév:</strong> {{ $oktato->felhasznalonev }}</p>
+                    <p><strong>Email:</strong> {{ $oktato->email }}</p>
                 @else
-                    Nincsenek tanulók!
+                    <p class="text-center text-danger">Nincs bejelentkezett oktató!</p>
                 @endif
-            </tbody>
-        @endif
-        </table>
             </div>
         </div>
-        <div class="courses col-md">
-        <div class="container">
-        <h3>Kurzus létrehozása</h3>
-         
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        <form action="{{ route('kurzus.store') }}" method="POST">
-            @csrf
-            <div>
-                <label>Kurzus neve:</label>
-                <input type="text" name="kurzus_nev" required>
+        <br>
+        <div class="col-md-8">
+            <h2 class="mb-3">Tanulók listája: </h2>
+                <div class="row">
+                <table class="table">
+                @if(isset($tanulok))
+                    <p>
+                        Nincs nincsenek tanulók!
+                    </p>
+                @else
+                    <thead>
+                        <tr>
+                            <th>Tanuló Neve: </th>
+                            <th>Kurzus Neve: </th>
+                            <th>Befizetett Összeg: </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if(isset($tanulok))
+                        @foreach($tanulok as $tanulo)
+                            <tr>
+                                <td>{{ $tanulo->tanulo_nev }}</td>
+                                <td>{{ $tanulo->kurzus_nev }}</td>
+                                <td>{{ $tanulo->befizetett_osszeg > 0 ? $tanulo->befizetett_osszeg . ' Ft' : 'Nem fizetett' }}</td>
+                            </tr>
+                        @endforeach
+                        @else
+                            Nincsenek tanulók!
+                        @endif
+                    </tbody>
+                @endif
+                </table>
             </div>
-            <div>
-                <label>Helyszín:</label>
-                <input type="text" name="helyszin" required>
-                <small>Írj "online"-t, ha online képzés!</small>
-            </div>
-            <div>
-                <label>Időpont:</label>
-                <input type="datetime-local" name="kepzes_ideje" required>
-            </div>
-            <div>
-                <label>Ár:</label>
-                <input type="number" name="dij">
-            </div>
-
-            <button type="submit">Létrehozás</button>
-        </form>
         </div>
-    </div>
+        <h3 class="mt-4">Kurzus létrehozása</h3>
+            @if(session('success'))
+                <div class="alert alert-success text-center">{{ session('success') }}</div>
+            @endif
+            <div class="container mt-4">
+                <div class="card shadow-lg p-4">
+                    <form action="{{ route('kurzus.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Kurzus neve:</label>
+                            <input type="text" name="kurzus_nev" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Helyszín:</label>
+                            <input type="text" name="helyszin" class="form-control" required>
+                            <small class="text-muted">Írj "online"-t, ha online képzés!</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Időpont:</label>
+                            <input type="datetime-local" name="kepzes_ideje" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Ár:</label>
+                            <input type="number" name="dij" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Létrehozás</button>
+                    </form>
+                </div>
+            </div>
+            <br>
         <div class="courses col-md kurzuslista">
             <h3>Kurzusok: </h3>
-        @if(isset($kurzusok) && $kurzusok->isEmpty())
-            <p>Nincsenek kurzusok.</p>
-        @else
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Kurzus Neve</th>
-                        <th>Ár</th>
-                        <th>Műveletek</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(isset($kurzusok))
-                    @foreach($kurzusok as $kurzus)
+            @if(isset($kurzusok) && $kurzusok->isEmpty())
+                <p>Nincsenek kurzusok.</p>
+            @else
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ $kurzus->kurzus_nev }}</td>
-                            <td>{{ $kurzus->ar }} Ft</td>
-                            <td>
-                                <form action="{{ route('kurzus.torol', $kurzus->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Törlés</button>
-                                </form>
-                            </td>
+                            <th>Kurzus Neve</th>
+                            <th>Ár</th>
+                            <th>Műveletek</th>
                         </tr>
-                    @endforeach
-                    @else
-                        Nincsenek kurzusok!
-                    @endif
-                </tbody>
-            </table>
-        @endif
+                    </thead>
+                    <tbody>
+                        @if(isset($kurzusok))
+                        @foreach($kurzusok as $kurzus)
+                            <tr>
+                                <td>{{ $kurzus->kurzus_nev }}</td>
+                                <td>{{ $kurzus->ar }} Ft</td>
+                                <td>
+                                    <form action="{{ route('kurzus.torol', $kurzus->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Törlés</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        @else
+                            Nincsenek kurzusok!
+                        @endif
+                    </tbody>
+                </table>
+            @endif
+        </div>
+        </div>
         </div>
     </div>
-
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
