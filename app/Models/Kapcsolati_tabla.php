@@ -10,8 +10,8 @@ class Kapcsolati_tabla extends Model
     /** @use HasFactory<\Database\Factories\KapcsolatiTablaFactory> */
     use HasFactory;
 
-    protected $table = 'kapcsolati_tabla';
-
+    protected $table = 'kapcsolati_tabla'; 
+    protected $fillable = ['tanulo_id', 'kurzus_id', 'befizetett_osszeg'];    
     public function kurzus()
     {
         return $this->belongsTo(Kurzusok::class, 'kurzus_id');

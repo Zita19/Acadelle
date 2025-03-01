@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Kurzus;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Models\Kapcsolati_tabla;
 
 class TanuloController extends Controller
 {
@@ -54,6 +55,7 @@ class TanuloController extends Controller
 
         return redirect()->back()->with('success', 'Sikeresen jelentkeztél a kurzusra!');
     }
+
     /**
      * Show the form for creating a new resource.
      */

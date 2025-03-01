@@ -97,25 +97,19 @@
             <div class="col-md-8">
                 <h2 class="mb-3">Felvett kurzusok</h2>
                 <div class="row">
-                @if(isset($kurzusok) && $kurzusok->isNotEmpty())
-                    @foreach($kurzusok as $kurzus)
-                        <div class="col-md-6">
-                            <div class="card p-3 shadow">
-                                <h5 class="text-primary">{{ $kurzus->kurzus_nev }}</h5>
-                                <p><strong>Helyszín:</strong> {{ $kurzus->helyszin }}</p>
-                                <p><strong>Díj:</strong> {{ $kurzus->dij }} Ft</p>
-                                <form action="{{ route('tanulo.leaveCourse', $kurzus->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Leiratkozás</button>
-                                </form>
+                    @if(isset($kurzusok) && $kurzusok->isNotEmpty())
+                        @foreach($kurzusok as $kurzus)
+                            <div class="col-md-6">
+                                <div class="card p-3 shadow">
+                                    <h5 class="text-primary">{{ $kurzus->kurzus_nev }}</h5>
+                                    <p><strong>Helyszín:</strong> {{ $kurzus->helyszin }}</p>
+                                    <p><strong>Díj:</strong> {{ $kurzus->dij }} Ft</p>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                @else
-                    <p>Nincsenek felvett kurzusok.</p>
-                @endif
-                <div class="mt-4">
-                    <a href="fizetes" class="pay-button">Fizetés</a>
+                        @endforeach
+                    @else
+                        <p>Nincsenek felvett kurzusok.</p>
+                    @endif
                 </div>
             </div>
         </div>
