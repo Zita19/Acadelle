@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BejelentkezesController;
+use App\Http\Controllers\FizetesController;
 use App\Http\Controllers\OktatokController;
 use App\Http\Controllers\Auth\KijelentkezesController;
 use App\Http\Controllers\RegisztracioController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\KurzusokController;
 use App\Http\Controllers\TanuloController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -77,3 +78,7 @@ Route::post('/jelentkezes/{kurzus}', [TanuloController::class, 'jelentkezes'])->
 Route::get('/oktatoi.oktatoi', [OktatokController::class, 'tanulok'])->name('oktatok.tanulok');
 
 Route::get('/oktatoi.oktatoi', [OktatokController::class, 'kurzusok'])->name('oktatok.kurzusok');
+
+Route::post('/tanuloi.tanuloi', [FizetesController::class, 'fizetes'])->name('fizetes.fizetes');
+
+Route::post('/tanuloi.tanuloi', [FizetesController::class, 'store'])->name('fizetes.store');

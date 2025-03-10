@@ -114,7 +114,40 @@
             </div>
         </div>
     </div>
-
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4 shadow">
+                <h2 class="text-center text-primary">Kurzus befizetés</h2>
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <form action="{{ route('fizetes.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="tanulo_id" value="{{ auth()->user()->id }}">
+                    <div class="mb-3">
+                        <label for="kurzus" class="form-label">Válassz egy kurzust:</label>
+                        <select id="kurzus" name="kurzus_id" class="form-select" required>
+                            <option value="">-- Válassz egy kurzust --</option>
+                            @foreach ($kurzusok as $kurzus)
+                                <option value="{{ $kurzus->id }}">
+                                    {{ $kurzus->kurzus_nev }} - {{ $kurzus->dij }} Ft
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="osszeg" class="form-label">Fizetendő összeg (Ft):</label>
+                        <input type="number" id="osszeg" name="befizetett_osszeg" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Fizetés</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">

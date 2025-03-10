@@ -167,7 +167,7 @@
                             <div class="position-relative d-block overflow-hidden" href="">
                                 <img class="img-fluid" src="img/cat-1.jpg" alt="">
                                 <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Web Design</h5>
+                                    <h5 class="m-0">Kurzus</h5>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                             <div class="position-relative d-block overflow-hidden" href="">
                                 <img class="img-fluid" src="img/cat-2.jpg" alt="">
                                 <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Grafikus Design</h5>
+                                    <h5 class="m-0">Kurzus</h5>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +183,7 @@
                             <div class="position-relative d-block overflow-hidden" href="">
                                 <img class="img-fluid" src="img/cat-3.jpg" alt="">
                                 <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Videó vágás</h5>
+                                    <h5 class="m-0">Kurzus</h5>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                     <div class="position-relative d-block h-100 overflow-hidden" href="">
                         <img class="img-fluid position-absolute w-100 h-100" src="img/cat-4.jpg" alt="" style="object-fit: cover;">
                         <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin:  1px;">
-                            <h5 class="m-0">Online Marketing</h5>
+                            <h5 class="m-0">Kurzus</h5>
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
                             <img class="img-fluid" src="img/course-1.jpg" alt="">
                         </div>
                         <div class="text-center p-4 pb-0">
-                            <h5 class="mb-4">Web Design & Tervezői kurzus kezdőknek</h5>
+                            <h5 class="mb-4">Kurzus</h5>
                         </div>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                             <img class="img-fluid" src="img/course-2.jpg" alt="">
                         </div>
                         <div class="text-center p-4 pb-0">
-                            <h5 class="mb-4">Videó vágás kezdőknek</h5>
+                            <h5 class="mb-4">Kurzus</h5>
                         </div>
                     </div>
                 </div>
@@ -237,7 +237,7 @@
                             <img class="img-fluid" src="img/course-3.jpg" alt="">
                         </div>
                         <div class="text-center p-4 pb-0">
-                            <h5 class="mb-4">Online marketing</h5>
+                            <h5 class="mb-4">Kurzus</h5>
                         </div>
                     </div>
                 </div>
@@ -269,7 +269,7 @@
                         </div>
                         <div class="text-center p-4">
                             <h5 class="mb-0">Oktató</h5>
-                            <small>Designer</small>
+                            <small>Oktató</small>
                         </div>
                     </div>
                 </div>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="text-center p-4">
                             <h5 class="mb-0">Oktató</h5>
-                            <small>Videó vágó</small>
+                            <small>Oktató</small>
                         </div>
                     </div>
                 </div>
@@ -305,7 +305,7 @@
                         </div>
                         <div class="text-center p-4">
                             <h5 class="mb-0">Oktató</h5>
-                            <small>Online marketinges</small>
+                            <small>Oktató</small>
                         </div>
                     </div>
                 </div>
@@ -323,7 +323,7 @@
                         </div>
                         <div class="text-center p-4">
                             <h5 class="mb-0">Oktató</h5>
-                            <small>Web designer</small>
+                            <small>Oktató</small>
                         </div>
                     </div>
                 </div>
